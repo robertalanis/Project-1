@@ -6,8 +6,13 @@
 }
 
 #storeName{
-    font-size: 60px;
+    font-size: 100px;
     font-weight: bold;
     font-family: 'Lobster', cursive;
-    margin-left: 40px;
+    margin-left: 60px;
 }
+
+.navbar{
+    background-color: rgb(117, 234, 238);
+}
+
