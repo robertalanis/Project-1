@@ -1,0 +1,18 @@
+.nav-link{
+    font-size: 40px;
+    font-family: 'Caveat', cursive;
+    margin-right: 40px;
+    margin-right: 40px;
+}
+
+#storeName{
+    font-size: 100px;
+    font-weight: bold;
+    font-family: 'Lobster', cursive;
+    margin-left: 60px;
+}
+
+.navbar{
+    background-color: rgb(117, 234, 238);
+}
+
