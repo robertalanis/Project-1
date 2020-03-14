@@ -6,10 +6,11 @@
 }
 
 #storeName{
-    font-size: 100px;
+    font-size: 110px;
     font-weight: bold;
     font-family: 'Lobster', cursive;
     margin-left: 60px;
+    color: seashell;
 }
 
 .navbar{
@@ -20,8 +21,32 @@
     background-image: url(https://cdn.pixabay.com/photo/2016/09/10/17/18/book-1659717__340.jpg);
 }
 
+
+#Home{
+color: seashell;
+font-weight: bolder;
+font-size: 50px;
+}
+
+#Mybooks{
+color: seashell;
+font-weight: bolder;
+font-size: 50px;
+}
+
+#navbarDropdown{
+    color: seashell;
+    font-weight: bolder;
+    font-size: 50px;
+}
+
+#search{
+    background-color: springgreen;
+
+
+}
+
 #interest-category-list {
     padding: 10px;
     padding-left: 10px;
 }
-
