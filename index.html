@@ -9,6 +9,9 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Caveat|Lobster|Pacifico&display=swap" rel="stylesheet">
 
+  <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
+
   <title>Bountiful Books</title>
 </head>
 
@@ -62,7 +65,21 @@
   <!--divs 3-6-3 column width-->
   <!---->
   <div class="row">
-    <div class="col-3"></div>
+    <div class="col-3" id="left-column">
+
+      <!-- add field for user to enter name  - this is temporary in order to test database features
+      - will be replaced with authentication method for retrieving user information -->
+      <form action="/action_page.php">
+        <label for="user-name">Name:</label>
+        <input type="text" id="user-name" name="user-name"><br><br>
+      </form>
+
+      <div id="interest-category-list">
+        <form method="post" action="/Tests/Post/" id="interest-category-form">      
+        </form>
+      </div>
+    </div>
+
     <div class="col-6">
       <div class="card" style="width: 48rem;">
         <img src="#" class="card-img-top" alt="no picture available">
@@ -76,7 +93,7 @@
     </div>
     <div class="col-3" id=right-column>
       <div id=quotes></div>
-      <div id=bookShelve></div>
+      <div id=bookShelf></div>
       <div id=social>
 
         <footer>
@@ -124,7 +141,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-  <script src="./assets/javascript/quotes.js"></script>
+  <!-- <script src="./assets/javascript/quotes.js"></script> -->
   <script src="./assets/javascript/app.js"></script>
 
 
