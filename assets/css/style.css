@@ -11,9 +11,9 @@
   font-family: "Lobster", cursive;
   margin-left: 60px;
   text-shadow: #fff 0px 0px 5px, #fff 0px 0px 10px, #fff 0px 0px 15px,
-    rgba(255, 45, 150, 0.739) 0px 0px 20px, #ff2d95 0px 0px 30px,
-    #ff2d95 0px 0px 40px, #ff2d95 0px 0px 50px, #ff2d95 0px 0px 75px;
-  color: rgb(225, 0, 255);
+    rgba(24, 156, 245, 0.739) 0px 0px 20px, #ff2d95 0px 0px 30px,
+    turquoise 0px 0px 40px, turquoise 0px 0px 50px, turquoise 0px 0px 75px;
+  color: rgb(0, 132, 255);
 }
 
 #searchSuc {
@@ -26,7 +26,7 @@
 }
 
 #banner {
-  background-image: url(https://cdn.pixabay.com/photo/2016/09/10/17/18/book-1659717__340.jpg);
+  background-color: tan;
 border: 5px solid black;
 }
 
@@ -41,6 +41,7 @@ border: 5px solid black;
     0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
     0 20px 20px rgba(0, 0, 0, 0.15);
   color: #ffffff;
+  margin-left: 35px;
 }
 
 #Mybooks {
@@ -75,8 +76,10 @@ border: 5px solid black;
 #quotes {
   border: 5px ridge red;
   padding: 35px;
-  font-size: 30px;
+  font-size: 25px;
   background-color: steelblue;
+  border-radius: 40px;
+  margin: 10px;
 }
 
 
@@ -99,8 +102,16 @@ border: 5px solid black;
     padding:30px;
     border: 5px solid green;
     background-color:slategray ;
+    margin: 20px;
 }
 
-.card{
-position: relative;
+#center-column{
+    margin-left:40px;
+    width: 45rem;
+    height: 25rem;
+
+}
+#card-body{
+    margin: 10px;
+    border: 10px solid black;
 }
