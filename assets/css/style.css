@@ -1,52 +1,117 @@
-.nav-link{
-    font-size: 40px;
-    font-family: 'Caveat', cursive;
-    margin-right: 40px;
-    margin-right: 40px;
+.nav-link {
+  font-size: 40px;
+  font-family: "Caveat", cursive;
+  margin-right: 40px;
+  margin-right: 40px;
 }
 
-#storeName{
-    font-size: 110px;
-    font-weight: bold;
-    font-family: 'Lobster', cursive;
-    margin-left: 60px;
-    color: seashell;
+#storeName {
+  font-size: 110px;
+  font-weight: bold;
+  font-family: "Lobster", cursive;
+  margin-left: 60px;
+  text-shadow: #fff 0px 0px 5px, #fff 0px 0px 10px, #fff 0px 0px 15px,
+    rgba(24, 156, 245, 0.739) 0px 0px 20px, #ff2d95 0px 0px 30px,
+    turquoise 0px 0px 40px, turquoise 0px 0px 50px, turquoise 0px 0px 75px;
+  color: rgb(0, 132, 255);
 }
 
-.navbar{
-    background-color: rgb(117, 234, 238);
+#searchSuc {
+  background-color: turquoise;
+  color: black;
 }
 
-#banner{
-    background-image: url(https://cdn.pixabay.com/photo/2016/09/10/17/18/book-1659717__340.jpg);
+.navbar {
+  background-color: rgb(117, 234, 238);
+}
+
+#banner {
+  background-color: tan;
+border: 5px solid black;
 }
 
 
-#Home{
-color: seashell;
-font-weight: bolder;
-font-size: 50px;
+#Home {
+  font-weight: bolder;
+  font-size: 50px;
+  color: #ffffff;
+  text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
+    0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
+    0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
+    0 20px 20px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+  margin-left: 35px;
 }
 
-#Mybooks{
-color: seashell;
-font-weight: bolder;
-font-size: 50px;
+#Mybooks {
+  font-weight: bolder;
+  font-size: 50px;
+  color: #ffffff;
+  text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
+    0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
+    0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
+    0 20px 20px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
 }
 
-#navbarDropdown{
-    color: seashell;
-    font-weight: bolder;
-    font-size: 50px;
-}
-
-#search{
-    background-color: springgreen;
-
-
+#navbarDropdown {
+  font-weight: bolder;
+  font-size: 50px;
+  color: #ffffff;
+  text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
+    0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
+    0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
+    0 20px 20px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
 }
 
 #interest-category-list {
-    padding: 10px;
-    padding-left: 10px;
+  padding: 10px;
+  padding-left: 10px;
+}
+
+#quotes {
+  border: 5px ridge red;
+  padding: 35px;
+  font-size: 25px;
+  background-color: steelblue;
+  border-radius: 40px;
+  margin: 10px;
+}
+
+
+
+#interest-category-list {
+  border: 5px ridge blue;
+  background-color: tan;
+}
+
+#main {
+    background: url(https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1082&q=80);
+ border: 5px solid black;
+ background-size: cover;
+ min-height: 100%;
+}
+
+
+
+#links{
+    padding:30px;
+    border: 5px solid green;
+    background-color:slategray ;
+    margin: 20px;
+}
+
+#center-column{
+    margin-left:40px;
+    width: 45rem;
+    height: 25rem;
+
+}
+#card-body{
+    margin: 10px;
+    border: 10px solid black;
 }
