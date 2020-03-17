@@ -10,9 +10,7 @@
   font-weight: bold;
   font-family: "Lobster", cursive;
   margin-left: 60px;
-  text-shadow: #fff 0px 0px 5px, #fff 0px 0px 10px, #fff 0px 0px 15px,
-    rgba(24, 156, 245, 0.739) 0px 0px 20px, #ff2d95 0px 0px 30px,
-    turquoise 0px 0px 40px, turquoise 0px 0px 50px, turquoise 0px 0px 75px;
+  text-shadow: #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 3px, #FF2D95 0px 0px 4px, #FF2D95 0px 0px 5px, #FF2D95 0px 0px 5px;
   color: rgb(0, 132, 255);
 }
 
@@ -74,25 +72,24 @@ border: 5px solid black;
 }
 
 #quotes, #bookShelf {
-  border: 5px ridge red;
   padding: 35px;
   font-size: 25px;
   background-color: steelblue;
+  border: 5px outset #1FDAEF;
   border-radius: 40px;
   margin: 10px;
 }
 
 
 
-
 #interest-category-list {
-  border: 5px ridge blue;
+  border: 5px outset blue;
   background-color: tan;
 }
 
 #main {
     background: url(https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1082&q=80);
- border: 5px solid black;
+ border: 5px outset black;
  background-size: cover;
  min-height: 100%;
 }
@@ -101,9 +98,10 @@ border: 5px solid black;
 
 #links{
     padding:30px;
-    border: 5px solid green;
+    border: 5px outset green;
     background-color:slategray ;
     margin: 20px;
+    color: black;
 }
 
 #center-column{
@@ -115,4 +113,19 @@ border: 5px solid black;
 #card-body{
     margin: 10px;
     border: 10px solid black;
+}
+
+/* pamela 3/16:  temporarily styling modal buttons (login/signup/logout) */
+.modal-button,
+#current-user {
+    width: 100%;
+    margin-left: 10px;
+}
+
+/* pamela 3/16: (temporary) just adding a background to see text */
+#current-user,  
+#current-preferences-title,
+#current-preferencess {
+  text-align: center;
+  background-color: #cccccc;
 }
