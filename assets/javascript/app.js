@@ -1,25 +1,31 @@
 $(document).ready(function () {
 
+
+    var favorite = "";
+    var read = "";
+    var toRead = "";
+
+
     // Your web app's Firebase configuration
     var firebaseConfig = {
-      apiKey: "AIzaSyCa9kIsfAb5dUUjyrbX-bchCAr-V2vhswE",
-      authDomain: "project1-c7c87.firebaseapp.com",
-      databaseURL: "https://project1-c7c87.firebaseio.com",
-      projectId: "project1-c7c87",
-      storageBucket: "project1-c7c87.appspot.com",
-      messagingSenderId: "4262500453",
-      appId: "1:4262500453:web:e39af8863268bd53194e8c"
+        apiKey: "AIzaSyCa9kIsfAb5dUUjyrbX-bchCAr-V2vhswE",
+        authDomain: "project1-c7c87.firebaseapp.com",
+        databaseURL: "https://project1-c7c87.firebaseio.com",
+        projectId: "project1-c7c87",
+        storageBucket: "project1-c7c87.appspot.com",
+        messagingSenderId: "4262500453",
+        appId: "1:4262500453:web:e39af8863268bd53194e8c"
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-  
+
     var database = firebase.database();
     var auth = firebase.auth();
 
 
     //listen for auth status changes
     auth.onAuthStateChanged(user => {
-        
+
         if (user) {
             // console.log("user logged in: ", user);
             $("#user-logged-in").text(user.displayName);
@@ -27,7 +33,9 @@ $(document).ready(function () {
             //save "displayName" to update and login button to add data to user node in database
             $("#update-button").attr("data-id", user.displayName);
             $("#login-button").attr("data-id", user.displayName);
+
             userName  = user.displayName;
+
             // console.log(userName);
             databaseSnapshotToPage();
         }
@@ -38,28 +46,41 @@ $(document).ready(function () {
         }
     });
 
-   
+
     function databaseSnapshotToPage() {
 
         $("#current-preferences").empty();
 
-        //on login or click to update preferences, capture current data in database:
-        var preferences = firebase.database().ref('userNames/' + userName + '/preferences');
-        preferences.once('value', function(snapshot) {
-            valueCheckboxes = snapshot.val();
+        //on login or click to update preferences, (or click to add to bookshelves), capture current data in database:
+        // var preferences = firebase.database().ref('userNames/' + userName + '/preferences');
+        var preferences = firebase.database().ref('userNames/' + userName);  // changed to get full userName object to read favorite, toRead and read
+        preferences.once('value', function (snapshot) {
+            valueCheckboxes = snapshot.val().preferences;       // added .preferences
             // console.log(valueCheckboxes);
 
-            eachInterestList =  $("<ul>");
+
+            // added to load bookShelf div
+            favorite = snapshot.val().favorite;                 // added to load bookShelf
+            console.log("favorite: ", favorite);
+            read = snapshot.val().read;                         // added to load bookShelf
+            toRead = snapshot.val().toRead;                     // added to load bookShelf
+            updateShelf();
+            // end of bookShelf adds
+
+
+            console.log(snapshot);
+            eachInterestList = $("<ul>");
             $("#current-preferences").append(eachInterestList);
 
             for (let i = 0; i < valueCheckboxes.length; i++) {
-               eachInterest = $("<li>")
-               eachInterest.attr({
-                 class: "interests",
-                 id: valueCheckboxes[i]
-               });
-            eachInterest.text(valueCheckboxes[i])
-            eachInterestList.append(eachInterest);
+                eachInterest = $("<li>")
+                eachInterest.attr({
+                    class: "interests",
+                    id: valueCheckboxes[i]
+                });
+                eachInterest.text(valueCheckboxes[i])
+                eachInterestList.append(eachInterest);
+
             }
         });
     }
@@ -68,6 +89,7 @@ $(document).ready(function () {
     function updateQuotes() {
         //file:///C:/Users/sb/OneDrive/Documents/BowlerConsulting/UTbootcamp/homework/Project-1/.../
         // required attribution link to be able to use the quote theysaidso.com
+
       
         var url = "https://quotes.rest/qod.json?category=inspire";
       
@@ -93,14 +115,14 @@ $(document).ready(function () {
         "Art", "Biographies", "Business", "Children", "Christian", "Classics", "Comics", "Fantasy",
         "Historical Fiction", "History", "Horror", "Music", "Mystery", "Nonfiction", "Romance", 
         "Science Fiction", "Sports", "Travel", "Young  Adult"];
-    
+
     // empty array to populate with checked checkboxes when user clicks 'update' button
     var valueCheckboxes = [];
 
     //adding form structure to left-column to hold "interestTopics" array
     $("#interest-category-form").append("<fieldset id='interest-fieldset'></fieldset>");
     $("#interest-fieldset").append("<legend id='legend'>Update your interests:</legend>");
-      
+
     //for loop to generate interest topics as checkboxes on left column on page load
     for (let i = 0; i < interestTopics.length; i++) {
         var interestTopic = $("<input type='checkbox' name='interest-topic' class='checkbox'>")
@@ -113,6 +135,7 @@ $(document).ready(function () {
         $("#interest-fieldset").append(interestTopicLabel);
     }
     $("#interest-fieldset").append("<input type='submit' id='update-button' value='Update'/>");
+
   
 
     //take the value of checked checkboxes and save to firebase by user on click of 'save' button
@@ -125,48 +148,50 @@ $(document).ready(function () {
         saveCheckboxValue();
 
         database.ref("userNames/").child(userName).set({
-            preferences: valueCheckboxes 
-            });
+
+            preferences: valueCheckboxes
+        });
 
         databaseSnapshotToPage();
-        
+
         //clear checkboxes after save is clicked
         $(".checkbox").prop("checked", false);
     });
-  
+
     // to retrive value of all checked checkboxes:
-    function saveCheckboxValue()  {  
+    function saveCheckboxValue() {
 
         //clear valueCheckboxes to update database each time save button is clicked
         valueCheckboxes = [];
-        var checkboxes = document.getElementsByName("interest-topic");  
-        
-        for(var i = 0; i < checkboxes.length; i++)  {  
-            if(checkboxes[i].checked) {
-              value = checkboxes[i].value;
-              valueCheckboxes.push(value);
-              }
-        }  
-    } 
-    
+        var checkboxes = document.getElementsByName("interest-topic");
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                value = checkboxes[i].value;
+                valueCheckboxes.push(value);
+            }
+        }
+    }
+
     //signup new users
-    $("#sign-up-button").click(function(event) {
+    $("#sign-up-button").click(function (event) {
         event.preventDefault();
 
         //storing user email and password and displayName
-        var newUserEmail  = $("#signup-email").val().trim();
-        var newUserPassword  = $("#signup-password").val().trim();
+        var newUserEmail = $("#signup-email").val().trim();
+        var newUserPassword = $("#signup-password").val().trim();
         var newUserDisplayName = $("#signup-display-name").val().trim();
 
         //save to firebase in authentication
         auth.createUserWithEmailAndPassword(newUserEmail, newUserPassword)
-        .then(userCred => {
-            var user = firebase.auth().currentUser;
-            user.updateProfile({
-                // must use something other than email to reference user's data from database, displayName is a field in authentication object
-                displayName: newUserDisplayName
+            .then(userCred => {
+                var user = firebase.auth().currentUser;
+                user.updateProfile({
+                    // must use something other than email to reference user's data from database, displayName is a field in authentication object
+                    displayName: newUserDisplayName
+                });
             });
-        });
+
 
         //clear text
         $("#signup-display-name").val("");
@@ -179,17 +204,18 @@ $(document).ready(function () {
 
 
     //login existing users
-    $("#login-button").click(function(event) {
+    $("#login-button").click(function (event) {
         event.preventDefault();
 
         //capture user login email and password
-        var userEmail  = $("#login-email").val().trim();
-        var userPassword  = $("#login-password").val().trim();
+        var userEmail = $("#login-email").val().trim();
+        var userPassword = $("#login-password").val().trim();
 
         auth.signInWithEmailAndPassword(userEmail, userPassword)
             .then(userCred => {
-           //display user preferences & bookshelf??
-        });
+                //display user preferences & bookshelf??
+            });
+
 
         //clear text
         $("#login-email").val("");
@@ -202,7 +228,7 @@ $(document).ready(function () {
     });
 
     //logout button
-    $("#logout").click(function(event) {
+    $("#logout").click(function (event) {
         event.preventDefault();
         auth.signOut();
         $("#user-logged-in").text(" ");
@@ -211,6 +237,63 @@ $(document).ready(function () {
     });
 
 
-   
-});
   
+    //shelf functions below
+
+    //updates the bookShelf div from scratch whenever you call it,  called from onclick add favorite/read/toRead and onLoad firebase
+    function updateShelf() {
+        $("#bookShelf").empty();
+        $("#bookShelf").append("<p>Favorite: <strong>" + favorite + "</strong></p>");
+        $("#bookShelf").append("<p>Last Read: <strong>" + read + "</strong></p>");
+        $("#bookShelf").append("<p>Next to Read: <strong>" + toRead + "</strong></p>");
+    }
+
+
+    // with cards loaded in middle column, user clicks "add" to: favorites, read, toRead buttons, updates userName node in fireBase
+    $("#middle-column").on("click", ".card", function (e) {
+        event.preventDefault();
+        if (!userName) return;                  // can't add to 
+        var thisId = e.target.attributes.getNamedItem("id").textContent;
+        console.log(thisId);
+        switch (thisId.slice(0, 1).toLowerCase()) {
+            case "f": {
+                var cardId = "#card-title" + thisId.replace("favorite", "");
+                favorite = $(cardId).text();
+                console.log("card ID", cardId);
+                console.log("card-title: ", $(cardId).text());
+                console.log("onclick card user: ", userName);
+                database.ref("userNames/").child(userName).update({
+                    favorite
+                });
+                updateShelf();
+                break;
+            }
+            case "t": {
+                var cardId = "#card-title" + thisId.replace("toRead", "");
+                toRead = $(cardId).text();
+                database.ref("userNames/").child(userName).update({
+                    toRead
+                });
+                updateShelf();
+                break;
+            }
+            case "r": {
+                var cardId = "#card-title" + thisId.replace("read", "");
+                read = $(cardId).text();
+                database.ref("userNames/").child(userName).update({
+                    read
+                });
+                updateShelf();
+                break;
+            }
+        }
+
+    });
+
+
+
+
+
+
+});
+

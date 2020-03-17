@@ -18,12 +18,13 @@
 </head>
 
 <body>
-  
-    <nav class="navbar navbar-expand-lg " id="banner">
-  <a class="navbar-brand" id="storeName">Bountiful Books</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+
+  <nav class="navbar navbar-expand-lg " id="banner">
+    <a class="navbar-brand" id="storeName">Bountiful Books</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
@@ -59,6 +60,7 @@
       </ul>
     </div>
   </nav>
+
 
   <!-- Pamela 3/16: adding in html for modals used for 'signup' and 'login' -->
 
@@ -134,13 +136,96 @@
   <div class="row" >
     <div class="col-3" id="left-column">
 
-      <!-- add field for user to enter name  - this is temporary in order to test database features
+
+  <!-- Pamela 3/16: adding in html for modals used for 'signup' and 'login' -->
+
+  <!-- Signup MODAL -->
+  <div class="modal fade" id="model-signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Sign-up</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="signup-display-name">User Name</label>
+              <input type="text" class="form-control" id="signup-display-name" aria-describedby="emailHelp"
+                placeholder="Enter User Name">
+            </div>
+            <div class="form-group">
+              <label for="signup-email">Email address</label>
+              <input type="email" class="form-control" id="signup-email" aria-describedby="emailHelp"
+                placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="signup-password">Password</label>
+              <input type="password" class="form-control" id="signup-password" placeholder="Password">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="sign-up-button">Sign-up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+
+  <div class="modal fade" id="model-login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="login-email">Email address</label>
+              <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp"
+                placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" class="form-control" id="login-password" placeholder="Password">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="login-button">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end of modals -->
+
+
+
+  <div id="main">
+    <!--divs 3-6-3 column width-->
+    <!---->
+    <div class="row">
+      <div class="col-3" id="left-column">
+
+        <!-- add field for user to enter name  - this is temporary in order to test database features
       - will be replaced with authentication method for retrieving user information -->
-      <!-- Pamela  3/16: removing name text field .... replacing with authentication -->
-      <!-- <form action="/action_page.php">
+
+        <!-- Pamela  3/16: removing name text field .... replacing with authentication -->
+        <!-- <form action="/action_page.php">
+
         <label for="user-name">Name:</label>
         <input type="text" id="user-name" name="user-name"><br><br>
       </form> -->
+
 
       <!--Pamela 3/16: adding signup/login/logout -->
       <div >
@@ -176,31 +261,46 @@
 
       <div id="interest-category-list">
         <form method="post" action="/Tests/Post/" id="interest-category-form">      
-        </form>
-      </div>
-    </div>
 
-    
-    <div class="col-6" >
-      <div class="card" id="card-body" >
-        <img src="#" class="card-img-top" alt="no picture available">
-        <div class="card-body" img src="assets\img\book.png" alt="">
-          <h5 class="card-title">Book Title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </form>
+
+        <!-- adding div to give list of currently selected interested by user (pulled from database) -->
+        <div id="current-preferences-title">Current interests:
+          <div id="current-preferences"></div>
+        </div>
+        <!--  -->
+
+        <div id="interest-category-list">
+          <form method="post" action="/Tests/Post/" id="interest-category-form">
+          </form>
         </div>
       </div>
-    </div>
-    
-  
-    
-    <div class="col-3" id=right-column>
-      <div id=quotes></div>
-      <div id=bookShelf></div>
-      <div id=social></div>
 
-        <footer >
+
+      <div class="col-6" id="middle-column">
+        <div class="card" id="card-body">
+          <img src="#" class="card-img-top" alt="no picture available">
+          <div class="card-body" img src="assets\img\book.png" alt="">
+            <h5 class="card-title" id="card-title10000">Book Title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <button id="favorite10000">Favorite</button>
+            <button id="read10000">Did Read</button>
+            <button id="toRead10000">Will Read</button>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="col-3" id=right-column>
+        <div id=quotes></div>
+        <div id=bookShelf></div>
+        <div id=social></div>
+
+        <footer>
+
           <div class="gr-footer__siteLinks" id="links">
             <div class="gr-footer__firstLinkColumn">
               <h3 class="gr-h3">Company</h3>
@@ -219,22 +319,23 @@
               </div>
               <div><a class="gr-hyperlink gr-hyperlink--black" href="/api">API</a></div>
             </div>
-          
-          <h3 class="gr-h3">Connect</h3><a class="gr-footer__socialLink" id="connect" href="https://www.facebook.com/Goodreads/"><img
-              height="20px" alt="Goodreads on Facebook" src="./assets/img/facebook.jfif"></a><a
-            class="gr-footer__socialLink" href="https://twitter.com/goodreads"><img alt="Goodreads on Twitter"
-              height="20px" src="./assets/img/twitter.jfif"></a><a class="gr-footer__socialLink"
-            href="https://www.instagram.com/goodreads/"><img alt="Goodreads on Instagram" height="20px"
-              src="./assets/img/instagram.jfif"></a><a class="gr-footer__socialLink"
-            href="https://www.linkedin.com/company/goodreads-com/"><img alt="Goodreads on LinkedIn" height="20px"
-              src="./assets/img/linkedIn.jfif"></a>
-            </div>
+
+            <h3 class="gr-h3">Connect</h3><a class="gr-footer__socialLink" id="connect"
+              href="https://www.facebook.com/Goodreads/"><img height="20px" alt="Goodreads on Facebook"
+                src="./assets/img/facebook.jfif"></a><a class="gr-footer__socialLink"
+              href="https://twitter.com/goodreads"><img alt="Goodreads on Twitter" height="20px"
+                src="./assets/img/twitter.jfif"></a><a class="gr-footer__socialLink"
+              href="https://www.instagram.com/goodreads/"><img alt="Goodreads on Instagram" height="20px"
+                src="./assets/img/instagram.jfif"></a><a class="gr-footer__socialLink"
+              href="https://www.linkedin.com/company/goodreads-com/"><img alt="Goodreads on LinkedIn" height="20px"
+                src="./assets/img/linkedIn.jfif"></a>
+          </div>
         </footer>
 
-        </div>
+      </div>
     </div>
   </div>
-</div>
+  </div>
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
