@@ -115,3 +115,18 @@ border: 5px solid black;
     margin: 10px;
     border: 10px solid black;
 }
+
+/* pamela 3/16:  temporarily styling modal buttons (login/signup/logout) */
+.modal-button,
+#current-user {
+    width: 100%;
+    margin-left: 10px;
+}
+
+/* pamela 3/16: (temporary) just adding a background to see text */
+#current-user,  
+#current-preferences-title,
+#current-preferencess {
+  text-align: center;
+  background-color: #cccccc;
+}
