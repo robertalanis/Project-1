@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+    var favorite = "";
+    var read = "";
+    var toRead = "";
 
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -15,8 +18,67 @@ $(document).ready(function () {
     firebase.initializeApp(firebaseConfig);
 
     var database = firebase.database();
+    var auth = firebase.auth();
 
 
+    //listen for auth status changes
+    auth.onAuthStateChanged(user => {
+
+        if (user) {
+            // console.log("user logged in: ", user);
+            $("#user-logged-in").text(user.displayName);
+
+            //save "displayName" to update and login button to add data to user node in database
+            $("#update-button").attr("data-id", user.displayName);
+            $("#login-button").attr("data-id", user.displayName);
+            userName = user.displayName;
+            // console.log(userName);
+            databaseSnapshotToPage();
+        }
+        else {
+            console.log("user logged out");
+            $("#update-button").removeAttr("data-id");
+            $("#login-button").removeAttr("data-id");
+        }
+    });
+
+
+    function databaseSnapshotToPage() {
+
+        $("#current-preferences").empty();
+
+        //on login or click to update preferences, (or click to add to bookshelves), capture current data in database:
+        // var preferences = firebase.database().ref('userNames/' + userName + '/preferences');
+        var preferences = firebase.database().ref('userNames/' + userName);  // changed to get full userName object to read favorite, toRead and read
+        preferences.once('value', function (snapshot) {
+            valueCheckboxes = snapshot.val().preferences;       // added .preferences
+            // console.log(valueCheckboxes);
+
+
+            // added to load bookShelf div
+            favorite = snapshot.val().favorite;                 // added to load bookShelf
+            console.log("favorite: ", favorite);
+            read = snapshot.val().read;                         // added to load bookShelf
+            toRead = snapshot.val().toRead;                     // added to load bookShelf
+            updateShelf();
+            // end of bookShelf adds
+
+
+            console.log(snapshot);
+            eachInterestList = $("<ul>");
+            $("#current-preferences").append(eachInterestList);
+
+            for (let i = 0; i < valueCheckboxes.length; i++) {
+                eachInterest = $("<li>")
+                eachInterest.attr({
+                    class: "interests",
+                    id: valueCheckboxes[i]
+                });
+                eachInterest.text(valueCheckboxes[i])
+                eachInterestList.append(eachInterest);
+            }
+        });
+    }
 
 
     function updateQuotes() {
@@ -27,10 +89,6 @@ $(document).ready(function () {
 
         $.ajax({ url, method: "GET" })
             .then(function (response) {
-                // console.log(response);
-                // console.log(response.contents.quotes[0]);
-                // console.log(response.contents.quotes[0].quote);
-                // console.log(response.contents.quotes[0].author);
                 var quote = response.contents.quotes[0].quote;
                 var author = response.contents.quotes[0].author;
                 $("#quotes").empty();
@@ -40,148 +98,181 @@ $(document).ready(function () {
 
             }).catch(function (err) {
                 console.log(err);
-            }
-            );
+            });
     }
 
-    // file quote.js function goes to "???quoteName???" API and pulls in quote
+    // goes to "theysaidso??" API and pulls in quote
     updateQuotes();
 
     //array to hold all interest topics
-    var interestTopics = ["Biographies", "History", "Mystery", "Travel"];
+    var interestTopics = [
+        "Art", "Biographies", "Business", "Children", "Christian", "Classics", "Comics", "Fantasy",
+        "Historical Fiction", "History", "Horror", "Music", "Mystery", "Nonfiction", "Romance",
+        "Science Fiction", "Sports", "Travel", "Young  Adult"];
 
+    // empty array to populate with checked checkboxes when user clicks 'update' button
+    var valueCheckboxes = [];
 
+    //adding form structure to left-column to hold "interestTopics" array
     $("#interest-category-form").append("<fieldset id='interest-fieldset'></fieldset>");
-    $("#interest-fieldset").append("<legend>Choose your interests:</legend>");
+    $("#interest-fieldset").append("<legend id='legend'>Update your interests:</legend>");
 
     //for loop to generate interest topics as checkboxes on left column on page load
     for (let i = 0; i < interestTopics.length; i++) {
-        var interestTopic = $("<input type='checkbox' name='interest-topic'>")
+        var interestTopic = $("<input type='checkbox' name='interest-topic' class='checkbox'>")
+        interestTopic.attr("value", interestTopics[i]);
+        interestTopic.attr("id", interestTopics[i]);
         var interestTopicLabel = $("<label></label><br>")
         interestTopicLabel.attr("for", interestTopics[i]);
         interestTopicLabel.text(interestTopics[i]);
-        interestTopic.attr("value", interestTopics[i]);
-        interestTopic.attr("id", interestTopics[i]);
         $("#interest-fieldset").append(interestTopic);
         $("#interest-fieldset").append(interestTopicLabel);
-
     }
-    $("#interest-fieldset").append("<input type='submit' id='save-button' value='Save'/>");
-
-    //  added global variable user for other functions to access, initialized to "", then save click updates (Steve)
-    var user = "Not Logged In";
-
-    //take the value of the user name and checkboxes and save to firebase by user on submit button??
+    $("#interest-fieldset").append("<input type='submit' id='update-button' value='Update'/>");
 
 
-    $("#save-button").on("click", function (event) {
+    //take the value of checked checkboxes and save to firebase by user on click of 'save' button
+    $("#update-button").on("click", function (event) {
         event.preventDefault();
 
-        var userName = $("#user-name").val().trim();
-        //add Bootstrap classes/validate data that is entered to the userName 
-        user = userName;                            // added to get global user variable for other onclicks and functions (Steve)
-        console.log("userName: ", userName);
-        console.log("user: ", user);
+        userName = $(this).attr("data-id");
 
-        //save for if we need to add a random key to the record
-        // var autoID =  database.ref().push().key
+        //runs to save checked checkboxes to an array to store in database
+        saveCheckboxValue();
 
-        // database.ref().child(autoID).set({
-        //     name: userName,
-        //     autoID: autoID
-        //     });
-
-
-        saveCheckboxes();
-
-        database.ref("userNames/").child(userName).update({
-            name: userName
+        database.ref("userNames/").child(userName).set({
+            preferences: valueCheckboxes
         });
 
-        // $("#user-name").val("");   //SHELVES BRANCH commented out to leave filled for testing, leaves current user name displayed in field
+        databaseSnapshotToPage();
 
-        // SHELVES BRANCH now that user is known, console log any change to current user node in firebase, for favorites etc.
-        database.ref("userNames/").child(user).on("value", function (nodeValues) {
-            console.log("nodeValues: ", nodeValues);
-            console.log("name: ", nodeValues.val().name);
-            console.log("favorite: ", nodeValues.val().favorite);
-            console.log("read: ", nodeValues.val().read);
-            console.log("toRead: ", nodeValues.val().toRead);
-            var favorite = nodeValues.val().favorite;
-            var read = nodeValues.val().read;
-            var toRead = nodeValues.val().toRead;
-            $("#bookShelf").empty();
-            $("#bookShelf").append("<p>Favorite: <strong>" + favorite + "</strong></p>");
-            $("#bookShelf").append("<p>Last Read: <strong>" + read + "</strong></p>");
-            $("#bookShelf").append("<p>Next to Read: <strong>" + toRead + "</strong></p>");
-        });
-
-
+        //clear checkboxes after save is clicked
+        $(".checkbox").prop("checked", false);
     });
 
-    //need to retrive value of all checked checkboxes:
-    function saveCheckboxes() {
+    // to retrive value of all checked checkboxes:
+    function saveCheckboxValue() {
+
+        //clear valueCheckboxes to update database each time save button is clicked
+        valueCheckboxes = [];
         var checkboxes = document.getElementsByName("interest-topic");
-        var numberOfCheckedItems = 0;
-        // var checkedOptions = [];
 
         for (var i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i].checked) {
-
-                numberOfCheckedItems++;
-                console.log(numberOfCheckedItems);
+                value = checkboxes[i].value;
+                valueCheckboxes.push(value);
             }
         }
-
     }
 
+    //signup new users
+    $("#sign-up-button").click(function (event) {
+        event.preventDefault();
 
+        //storing user email and password and displayName
+        var newUserEmail = $("#signup-email").val().trim();
+        var newUserPassword = $("#signup-password").val().trim();
+        var newUserDisplayName = $("#signup-display-name").val().trim();
 
-    // shelves branch adds to app.js below here
+        //save to firebase in authentication
+        auth.createUserWithEmailAndPassword(newUserEmail, newUserPassword)
+            .then(userCred => {
+                var user = firebase.auth().currentUser;
+                user.updateProfile({
+                    // must use something other than email to reference user's data from database, displayName is a field in authentication object
+                    displayName: newUserDisplayName
+                });
+            });
 
-    // each time child added console log data from child, missing favorites, read and toRead
-    database.ref().on("child_added", function (childSnapshot) {
+        //clear text
+        $("#signup-display-name").val("");
+        $("#signup-email").val("");
+        $("#signup-password").val("");
 
-        // Log everything that's coming out of snapshot
-        console.log(childSnapshot.val().name);
-
-        // Handle the errors
-    }, function (errorObject) {
-        console.log("Errors handled: " + errorObject.code);
+        // close modal
+        $(".modal").modal('hide');
     });
 
 
+    //login existing users
+    $("#login-button").click(function (event) {
+        event.preventDefault();
+
+        //capture user login email and password
+        var userEmail = $("#login-email").val().trim();
+        var userPassword = $("#login-password").val().trim();
+
+        auth.signInWithEmailAndPassword(userEmail, userPassword)
+            .then(userCred => {
+                //display user preferences & bookshelf??
+            });
+
+        //clear text
+        $("#login-email").val("");
+        $("#login-password").val("");
+
+        //close modal
+        $(".modal").modal('hide');
+
+        $("#current-preferences").show();
+    });
+
+    //logout button
+    $("#logout").click(function (event) {
+        event.preventDefault();
+        auth.signOut();
+        $("#user-logged-in").text(" ");
+        $("#current-preferences").text(" ");
+        $("#current-preferences").hide();
+    });
 
 
-    // with cards loaded in middle column, user clicks add to: favorites, read, toRead buttons, updates userName node in fireBase
+    //shelf functions below
+
+    //updates the bookShelf div from scratch whenever you call it,  called from onclick add favorite/read/toRead and onLoad firebase
+    function updateShelf() {
+        $("#bookShelf").empty();
+        $("#bookShelf").append("<p>Favorite: <strong>" + favorite + "</strong></p>");
+        $("#bookShelf").append("<p>Last Read: <strong>" + read + "</strong></p>");
+        $("#bookShelf").append("<p>Next to Read: <strong>" + toRead + "</strong></p>");
+    }
+
+
+    // with cards loaded in middle column, user clicks "add" to: favorites, read, toRead buttons, updates userName node in fireBase
     $("#middle-column").on("click", ".card", function (e) {
         event.preventDefault();
-        if (user === "Not Logged In") return;
+        if (!userName) return;                  // can't add to 
         var thisId = e.target.attributes.getNamedItem("id").textContent;
         console.log(thisId);
         switch (thisId.slice(0, 1).toLowerCase()) {
             case "f": {
                 var cardId = "#card-title" + thisId.replace("favorite", "");
+                favorite = $(cardId).text();
                 console.log("card ID", cardId);
                 console.log("card-title: ", $(cardId).text());
-                console.log("onclick card user: ", user);
-                database.ref("userNames/").child(user).update({
-                    favorite: $(cardId).text()
+                console.log("onclick card user: ", userName);
+                database.ref("userNames/").child(userName).update({
+                    favorite
                 });
+                updateShelf();
                 break;
             }
             case "t": {
                 var cardId = "#card-title" + thisId.replace("toRead", "");
-                database.ref("userNames/").child(user).update({
-                    toRead: $(cardId).text()
+                toRead = $(cardId).text();
+                database.ref("userNames/").child(userName).update({
+                    toRead
                 });
+                updateShelf();
                 break;
             }
             case "r": {
                 var cardId = "#card-title" + thisId.replace("read", "");
-                database.ref("userNames/").child(user).update({
-                    read: $(cardId).text()
+                read = $(cardId).text();
+                database.ref("userNames/").child(userName).update({
+                    read
                 });
+                updateShelf();
                 break;
             }
         }
@@ -193,5 +284,4 @@ $(document).ready(function () {
 
 
 
-}); //end Jquery $documentReady
-
+});
