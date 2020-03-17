@@ -16,12 +16,13 @@
 </head>
 
 <body>
-  
-    <nav class="navbar navbar-expand-lg " id="banner">
-  <a class="navbar-brand" id="storeName">Bountiful Books</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+
+  <nav class="navbar navbar-expand-lg " id="banner">
+    <a class="navbar-brand" id="storeName">Bountiful Books</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
@@ -56,49 +57,52 @@
           </div>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search"  placeholder="Search" aria-label="Search">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchSuc">Search</button>
       </form>
     </div>
   </nav>
-<div id="main">
-  <!--divs 3-6-3 column width-->
-  <!---->
-  <div class="row" >
-    <div class="col-3" id="left-column">
+  <div id="main">
+    <!--divs 3-6-3 column width-->
+    <!---->
+    <div class="row">
+      <div class="col-3" id="left-column">
 
-      <!-- add field for user to enter name  - this is temporary in order to test database features
+        <!-- add field for user to enter name  - this is temporary in order to test database features
       - will be replaced with authentication method for retrieving user information -->
-      <form action="/action_page.php">
-        <label for="user-name">Name:</label>
-        <input type="text" id="user-name" name="user-name"><br><br>
-      </form>
-
-      <div id="interest-category-list">
-        <form method="post" action="/Tests/Post/" id="interest-category-form">      
+        <form action="/action_page.php">
+          <label for="user-name">Name:</label>
+          <input type="text" id="user-name" name="user-name"><br><br>
         </form>
-      </div>
-    </div>
 
-    <div class="col-6" >
-      <div class="card" id="card-body" >
-        <img src="#" class="card-img-top" alt="no picture available">
-        <div class="card-body" img src="assets\img\book.png" alt="">
-          <h5 class="card-title">Book Title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div id="interest-category-list">
+          <form method="post" action="/Tests/Post/" id="interest-category-form">
+          </form>
         </div>
       </div>
-    </div>
-  
-    
-    <div class="col-3" id=right-column>
-      <div id=quotes></div>
-      <div id=bookShelf></div>
-      <div id=social></div>
 
-        <footer >
+      <div class="col-6" id="middle-column">
+        <div class="card" id="card-body">
+          <img src="#" class="card-img-top" alt="no picture available">
+          <div class="card-body" img src="assets\img\book.png" alt="">
+            <h5 class="card-title" id="card-title10000">Book Title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <button id=favorite10000>Test add Favorite</button>
+            <button id=read10000>Test add Read</button>
+            <button id=toRead10000>Test add toRead</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-3" id=right-column>
+        <div id=quotes></div>
+        <div id=bookShelf></div>
+        <div id=social></div>
+
+        <footer>
           <div class="gr-footer__siteLinks" id="links">
             <div class="gr-footer__firstLinkColumn">
               <h3 class="gr-h3">Company</h3>
@@ -117,22 +121,23 @@
               </div>
               <div><a class="gr-hyperlink gr-hyperlink--black" href="/api">API</a></div>
             </div>
-          
-          <h3 class="gr-h3">Connect</h3><a class="gr-footer__socialLink" id="connect" href="https://www.facebook.com/Goodreads/"><img
-              height="20px" alt="Goodreads on Facebook" src="./assets/img/facebook.jfif"></a><a
-            class="gr-footer__socialLink" href="https://twitter.com/goodreads"><img alt="Goodreads on Twitter"
-              height="20px" src="./assets/img/twitter.jfif"></a><a class="gr-footer__socialLink"
-            href="https://www.instagram.com/goodreads/"><img alt="Goodreads on Instagram" height="20px"
-              src="./assets/img/instagram.jfif"></a><a class="gr-footer__socialLink"
-            href="https://www.linkedin.com/company/goodreads-com/"><img alt="Goodreads on LinkedIn" height="20px"
-              src="./assets/img/linkedIn.jfif"></a>
-            </div>
+
+            <h3 class="gr-h3">Connect</h3><a class="gr-footer__socialLink" id="connect"
+              href="https://www.facebook.com/Goodreads/"><img height="20px" alt="Goodreads on Facebook"
+                src="./assets/img/facebook.jfif"></a><a class="gr-footer__socialLink"
+              href="https://twitter.com/goodreads"><img alt="Goodreads on Twitter" height="20px"
+                src="./assets/img/twitter.jfif"></a><a class="gr-footer__socialLink"
+              href="https://www.instagram.com/goodreads/"><img alt="Goodreads on Instagram" height="20px"
+                src="./assets/img/instagram.jfif"></a><a class="gr-footer__socialLink"
+              href="https://www.linkedin.com/company/goodreads-com/"><img alt="Goodreads on LinkedIn" height="20px"
+                src="./assets/img/linkedIn.jfif"></a>
+          </div>
         </footer>
 
-        </div>
+      </div>
     </div>
   </div>
-</div>
+  </div>
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

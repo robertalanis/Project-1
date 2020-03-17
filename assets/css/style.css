@@ -73,7 +73,7 @@ border: 5px solid black;
   padding-left: 10px;
 }
 
-#quotes {
+#quotes, #bookShelf {
   border: 5px ridge red;
   padding: 35px;
   font-size: 25px;
@@ -81,6 +81,7 @@ border: 5px solid black;
   border-radius: 40px;
   margin: 10px;
 }
+
 
 
 
