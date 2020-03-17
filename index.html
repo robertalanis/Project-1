@@ -61,6 +61,82 @@
     </div>
   </nav>
 
+
+  <!-- Pamela 3/16: adding in html for modals used for 'signup' and 'login' -->
+
+  <!-- Signup MODAL -->
+  <div class="modal fade" id="model-signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Sign-up</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+          <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="signup-display-name">User Name</label>
+                  <input type="text" class="form-control" id="signup-display-name" aria-describedby="emailHelp" placeholder="Enter User Name">
+                </div>
+                <div class="form-group">
+                  <label for="signup-email">Email address</label>
+                  <input type="email" class="form-control" id="signup-email" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                  <label for="signup-password">Password</label>
+                  <input type="password" class="form-control" id="signup-password" placeholder="Password">
+                </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="sign-up-button">Sign-up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+ 
+  <div class="modal fade" id="model-login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+          <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="login-email">Email address</label>
+                  <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                  <label for="login-password">Password</label>
+                  <input type="password" class="form-control" id="login-password" placeholder="Password">
+                </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="login-button">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- end of modals -->
+
+
+
+<div id="main">
+  <!--divs 3-6-3 column width-->
+  <!---->
+  <div class="row" >
+    <div class="col-3" id="left-column">
+
+
   <!-- Pamela 3/16: adding in html for modals used for 'signup' and 'login' -->
 
   <!-- Signup MODAL -->
@@ -142,38 +218,50 @@
 
         <!-- add field for user to enter name  - this is temporary in order to test database features
       - will be replaced with authentication method for retrieving user information -->
+
         <!-- Pamela  3/16: removing name text field .... replacing with authentication -->
         <!-- <form action="/action_page.php">
+
         <label for="user-name">Name:</label>
         <input type="text" id="user-name" name="user-name"><br><br>
       </form> -->
 
-        <!--Pamela 3/16: adding signup/login/logout -->
-        <div>
-          <button type="button" class="modal-button" class="btn btn-primary" data-toggle="modal"
-            data-target="#model-signup">
-            Sign-up
-          </button><br>
-          <button type="button" class="modal-button" class="btn btn-primary" data-toggle="modal"
-            data-target="#model-login">
-            Login
-          </button><br>
-          <button type="button" class="modal-button" class="btn btn-primary" id="logout">
-            Logout
-          </button><br>
 
-          <!-- and adding div to  display the user's name when logged into the app   -->
-          <div id="current-user">
-            <p id="user-logged-in-title">Logged in as:</p>
-            <p id="user-logged-in"></p>
-          </div>
+      <!--Pamela 3/16: adding signup/login/logout -->
+      <div >
+        <button type="button" class="modal-button" class="btn btn-primary" data-toggle="modal" data-target="#model-signup">
+          Sign-up
+        </button><br>
+        <button type="button" class="modal-button" class="btn btn-primary" data-toggle="modal" data-target="#model-login">
+          Login
+        </button><br>
+        <button type="button" class="modal-button" class="btn btn-primary" id="logout">
+          Logout
+        </button><br>
+
+        <!-- and adding div to  display the user's name when logged into the app   -->
+        <div id="current-user">
+          <p id="user-logged-in-title">Logged in as:</p>
+          <p id="user-logged-in"></p>
         </div>
-        <!--  -->
+      </div>
+      <!--  -->
+      
+      <!--Pamela 3/16: moved search textbox and button from banner  -->
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search"  placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchSuc">Search</button>
+      </form>
 
-        <!--Pamela 3/16: moved search textbox and button from banner  -->
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchSuc">Search</button>
+      <!-- adding div to give list of currently selected interested by user (pulled from database) -->
+      <div id="current-preferences-title">Current interests:
+        <div id="current-preferences"></div>
+      </div>
+      <!--  -->
+
+      <div id="interest-category-list">
+        <form method="post" action="/Tests/Post/" id="interest-category-form">      
+
         </form>
 
         <!-- adding div to give list of currently selected interested by user (pulled from database) -->
@@ -212,6 +300,7 @@
         <div id=social></div>
 
         <footer>
+
           <div class="gr-footer__siteLinks" id="links">
             <div class="gr-footer__firstLinkColumn">
               <h3 class="gr-h3">Company</h3>
