@@ -34,7 +34,7 @@ $(document).ready(function () {
             $("#update-button").attr("data-id", user.displayName);
             $("#login-button").attr("data-id", user.displayName);
 
-            userName  = user.displayName;
+            userName = user.displayName;
 
             // console.log(userName);
             databaseSnapshotToPage();
@@ -90,30 +90,30 @@ $(document).ready(function () {
         //file:///C:/Users/sb/OneDrive/Documents/BowlerConsulting/UTbootcamp/homework/Project-1/.../
         // required attribution link to be able to use the quote theysaidso.com
 
-      
+
         var url = "https://quotes.rest/qod.json?category=inspire";
-      
+
         $.ajax({ url, method: "GET" })
-              .then(function (response) {
-                  var quote = response.contents.quotes[0].quote;
-                  var author = response.contents.quotes[0].author;
-                  $("#quotes").empty();
-                  $("#quotes").append("<p>Quote of the day: <strong>" + quote + "</strong></p>");
-                  $("#quotes").append("<p>Author: <strong>" + author + "</strong></p>");
-                  $("#quotes").append("<p>Source: theysaidso.com </p>");
-      
+            .then(function (response) {
+                var quote = response.contents.quotes[0].quote;
+                var author = response.contents.quotes[0].author;
+                $("#quotes").empty();
+                $("#quotes").append("<p>Quote of the day: <strong>" + quote + "</strong></p>");
+                $("#quotes").append("<p>Author: <strong>" + author + "</strong></p>");
+                $("#quotes").append("<p>Source: theysaidso.com </p>");
+
             }).catch(function (err) {
                 console.log(err);
-                });
+            });
     }
-    
+
     // goes to "theysaidso??" API and pulls in quote
     updateQuotes();
-  
+
     //array to hold all interest topics
     var interestTopics = [
         "Art", "Biographies", "Business", "Children", "Christian", "Classics", "Comics", "Fantasy",
-        "Historical Fiction", "History", "Horror", "Music", "Mystery", "Nonfiction", "Romance", 
+        "Historical Fiction", "History", "Horror", "Music", "Mystery", "Nonfiction", "Romance",
         "Science Fiction", "Sports", "Travel", "Young  Adult"];
 
     // empty array to populate with checked checkboxes when user clicks 'update' button
@@ -136,19 +136,18 @@ $(document).ready(function () {
     }
     $("#interest-fieldset").append("<input type='submit' id='update-button' value='Update'/>");
 
-  
+
 
     //take the value of checked checkboxes and save to firebase by user on click of 'save' button
-    $("#update-button").on("click", function(event) {
+    $("#update-button").on("click", function (event) {
         event.preventDefault();
-  
+
         userName = $(this).attr("data-id");
-        
+
         //runs to save checked checkboxes to an array to store in database
         saveCheckboxValue();
 
-        database.ref("userNames/").child(userName).set({
-
+        database.ref("userNames/").child(userName).update({
             preferences: valueCheckboxes
         });
 
@@ -237,7 +236,7 @@ $(document).ready(function () {
     });
 
 
-  
+
     //shelf functions below
 
     //updates the bookShelf div from scratch whenever you call it,  called from onclick add favorite/read/toRead and onLoad firebase
@@ -289,6 +288,37 @@ $(document).ready(function () {
         }
 
     });
+
+
+    // / API Key
+    // var key = "Ct9FFohzvoH1NHCQ7TzXQ";
+    var key = "JgCBn7KkZN4X2G5VcGuN2Q";
+    var search = "horror";
+    // // Function to Search by ISBN
+    // function search (search) {
+    var url = "https://cors-anywhere.herokuapp.com/https://www.goodreads.com/search/index.xml?key=" + key + "&q=" + search;
+
+    // testing our goodreads api w ajax
+    // console.log("Feeling name is: " + e.target.innerText + "feeling: " + feeling);
+    $.ajax({
+        url,
+        method: "GET",
+        dataType: 'xml'
+    })
+        .then(function (response) {
+            console.log(response);
+
+            var xml = response,
+                xmlDoc = $.parseXML(xml),
+                $xml = $(xmlDoc),
+                $title = $xml.find("results");
+            // var temp = xml.getElementsByTagName("search").getElementsByTagName("results").getElementsByTagName("work").getElementsByTagName("best_book").getElementsByTagName("author");
+            var temp = xml.getElementsByTagName("search");//.getElementsByTagName("results");//.getElementsByTagName("work").getElementsByTagName("best_book").getElementsByTagName("author");
+            console.log("title: ", $title);
+            console.log("title: ", temp);
+        }).catch(function (err) {
+            console.log(err);
+        });
 
 
 
