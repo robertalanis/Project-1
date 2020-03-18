@@ -1,8 +1,10 @@
 $(document).ready(function () {
 
+
     var favorite = "";
     var read = "";
     var toRead = "";
+
 
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -31,7 +33,9 @@ $(document).ready(function () {
             //save "displayName" to update and login button to add data to user node in database
             $("#update-button").attr("data-id", user.displayName);
             $("#login-button").attr("data-id", user.displayName);
+
             userName = user.displayName;
+
             // console.log(userName);
             databaseSnapshotToPage();
         }
@@ -76,6 +80,7 @@ $(document).ready(function () {
                 });
                 eachInterest.text(valueCheckboxes[i])
                 eachInterestList.append(eachInterest);
+
             }
         });
     }
@@ -84,6 +89,7 @@ $(document).ready(function () {
     function updateQuotes() {
         //file:///C:/Users/sb/OneDrive/Documents/BowlerConsulting/UTbootcamp/homework/Project-1/.../
         // required attribution link to be able to use the quote theysaidso.com
+
 
         var url = "https://quotes.rest/qod.json?category=inspire";
 
@@ -129,6 +135,7 @@ $(document).ready(function () {
         $("#interest-fieldset").append(interestTopicLabel);
     }
     $("#interest-fieldset").append("<input type='submit' id='update-button' value='Update'/>");
+
 
 
     //take the value of checked checkboxes and save to firebase by user on click of 'save' button
@@ -184,6 +191,7 @@ $(document).ready(function () {
                 });
             });
 
+
         //clear text
         $("#signup-display-name").val("");
         $("#signup-email").val("");
@@ -207,6 +215,7 @@ $(document).ready(function () {
                 //display user preferences & bookshelf??
             });
 
+
         //clear text
         $("#login-email").val("");
         $("#login-password").val("");
@@ -225,6 +234,7 @@ $(document).ready(function () {
         $("#current-preferences").text(" ");
         $("#current-preferences").hide();
     });
+
 
 
     //shelf functions below
@@ -316,3 +326,4 @@ $(document).ready(function () {
 
 
 });
+
