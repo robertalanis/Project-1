@@ -21,7 +21,7 @@ function search(search) {
       xmlDoc = parser.parseFromString(result, "text/xml");
 
       // Number of search results returned
-      var searchLength = 10;
+      var searchLength = 3;
 
       //List 10 Titles from the Search Results
       for (let index = 0; index < searchLength; index++) {
@@ -70,7 +70,7 @@ function search(search) {
         div.append(img);
         div.append(pTitle);
         div.append(pAuthor);
-        div.addClass("bookDiv");
+        div.addClass("resultDiv");
         $(".bookDiv").prepend(div);
     }
     
