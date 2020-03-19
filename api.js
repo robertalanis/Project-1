@@ -73,9 +73,9 @@ function search(search) {
         div.append(pTitle);
         div.append(pAuthor);
         
-        // Asign div class resultDiv and prepend to each div
+        // Asign div class resultDiv and append to each div
         div.addClass("resultDiv");
-        $(".bookDiv").prepend(div);
+        $(".bookDiv").append(div);
     }
     
     // Log search entire search result
