@@ -15,35 +15,76 @@ function search(search) {
   };
   fetch(queryURL, requestOptions)
     .then(response => response.text())
+    //.then(result => console.log(result))
     .then(result => {
       parser = new DOMParser();
       xmlDoc = parser.parseFromString(result, "text/xml");
-      var Title = xmlDoc
-        .getElementsByTagName("search")[0]
-        .getElementsByTagName("results")[0]
-        .getElementsByTagName("work")[0]
-        .getElementsByTagName("best_book")[0]
-        .getElementsByTagName("title")[0].childNodes[0].nodeValue;
-      console.log("First Search Result Title:", Title);
+
+      // Number of search results returned
+      var searchLength = 10;
 
       //List 10 Titles from the Search Results
-      for (let index = 0; index < 10; index++) {
-        var searchResult = xmlDoc
+      for (let index = 0; index < searchLength; index++) {
+
+        // Div for each Book
+        var div = $("<div>");
+        // Image tag each Book
+        var img = $("<img>");
+        // Title tag for each Book
+        var pTitle = $("<p>");
+        // Author tag for each Book
+        var pAuthor = $("<p>");
+
+        // Title
+        var bookTitle = xmlDoc
             .getElementsByTagName("search")[0]
             .getElementsByTagName("results")[0]
             .getElementsByTagName("work")[index]
             .getElementsByTagName("best_book")[0]
             .getElementsByTagName("title")[0].childNodes[0].nodeValue;
-        console.log("Book ", index+1, ": ", searchResult);
+
+        // Author
+        var bookAuthor = xmlDoc
+            .getElementsByTagName("search")[0]
+            .getElementsByTagName("results")[0]
+            .getElementsByTagName("work")[index]
+            .getElementsByTagName("best_book")[0]
+            .getElementsByTagName("author")[0]
+            .getElementsByTagName("name")[0].childNodes[0].nodeValue;
+
+        // Image
+        var imageLink = xmlDoc
+            .getElementsByTagName("search")[0]
+            .getElementsByTagName("results")[0]
+            .getElementsByTagName("work")[index]
+            .getElementsByTagName("best_book")[0]
+            .getElementsByTagName("image_url")[0].childNodes[0].nodeValue;    
+
+            
+        // Place text inside divs
+        pTitle.html(bookTitle);
+        pAuthor.html(bookAuthor)
+
+        // Placement of text inside inside BookDiv for each result
+        img.attr("src", imageLink);
+        div.append(img);
+        div.append(pTitle);
+        div.append(pAuthor);
+        div.addClass("bookDiv");
+        $(".bookDiv").prepend(div);
     }
     
-      console.log("IMPORTANT:", xmlDoc);
+    // Log search entire search result
+    console.log("IMPORTANT:", xmlDoc);
+    
     })
     .catch(error => console.log("error", error));
 }
 
-search(9780439554930); // Harry Potter and the Sorcerer's Stone
-search("Call_Me_By_Your_Name") // Call me By Your Name
-search("Dan_Brown") // Dan Brown
+// Test Searches
+
+//search(9780439554930); // Harry Potter and the Sorcerer's Stone
+//search("Call_Me_By_Your_Name") // Call me By Your Name
+//search("Dan_Brown") // Dan Brown
 search("Stephen_King") //Stephen King
-search("Science_Fiction") //Science Ficiton
+//search("Science_Fiction") //Science Ficiton
