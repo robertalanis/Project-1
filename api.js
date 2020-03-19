@@ -61,15 +61,19 @@ function search(search) {
             .getElementsByTagName("image_url")[0].childNodes[0].nodeValue;    
 
             
-        // Place text inside divs
+        // Place results inside p tags with class names
         pTitle.html(bookTitle);
+        pTitle.addClass("title")
         pAuthor.html(bookAuthor)
+        pAuthor.addClass("author")
 
         // Placement of text inside inside BookDiv for each result
         img.attr("src", imageLink);
         div.append(img);
         div.append(pTitle);
         div.append(pAuthor);
+        
+        // Asign div class resultDiv and prepend to each div
         div.addClass("resultDiv");
         $(".bookDiv").prepend(div);
     }
