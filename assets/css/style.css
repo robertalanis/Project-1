@@ -1,6 +1,6 @@
 .nav-link {
   font-size: 40px;
-  font-family: "Caveat", cursive;
+  font-family: "Special Elite", cursive;
   margin-right: 40px;
   margin-right: 40px;
 }
@@ -15,8 +15,23 @@
 }
 
 #searchSuc {
-  background-color: turquoise;
-  color: black;
+  box-shadow: 3px 4px 0px 0px #21338a;
+	background:linear-gradient(to bottom, #2035c4 5%, #38f097 100%);
+	background-color:#2035c4;
+	border-radius:18px;
+	border:1px solid #19cf59;
+	display:inline-block;
+	cursor:pointer;
+	color:#ebeb09;
+	font-family:Arial;
+	font-size:17px;
+	padding:7px 25px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #810e05;
+  margin-top: 200px;
+}
+#searchSucInput{
+  margin-top: 100px;
 }
 
 .navbar {
@@ -69,6 +84,10 @@ border: 5px solid black;
 #interest-category-list {
   padding: 10px;
   padding-left: 10px;
+  border: 5px outset #1FDAEF;
+  border-radius: 40px;
+  margin: 10px;
+  background-color: slategray;
 }
 
 
@@ -76,18 +95,13 @@ border: 5px solid black;
 
   padding: 35px;
   font-size: 25px;
-  background-color: steelblue;
+  background-color: slategray;
   border: 5px outset #1FDAEF;
   border-radius: 40px;
   margin: 10px;
+  margin-top: 40px;
 }
 
-
-
-#interest-category-list {
-  border: 5px outset blue;
-  background-color: tan;
-}
 
 #main {
     background: url(https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1082&q=80);
@@ -100,10 +114,20 @@ border: 5px solid black;
 
 #links{
     padding:30px;
-    border: 5px outset green;
+    border: 5px outset #1FDAEF;
     background-color:slategray ;
+    border-radius: 40px;
     margin: 20px;
     color: black;
+    margin-top: 60px;
+    font-size: 36px;
+    font-family: Caveat, cursive;
+}
+
+.gr-h3{
+  font-size: 52px;
+  font-weight: bolder;
+  font-family: 'Acme', sans-serif;
 }
 
 #center-column{
@@ -113,21 +137,145 @@ border: 5px solid black;
 
 }
 #card-body{
-    margin: 10px;
-    border: 10px solid black;
-}
-
-/* pamela 3/16:  temporarily styling modal buttons (login/signup/logout) */
-.modal-button,
+    margin-top: 10px;
+    border: 10px outset slategrey;
+    width: 600px;
+    height: 300px;
+    margin-left: 200px;
+    border-radius: 40px;
+    
+  }
+  
+  #current-user{
+    margin-top: 40px;
+    
+  }
+  /* pamela 3/16:  temporarily styling modal buttons (login/signup/logout) */
+  .modal-button,
 #current-user {
     width: 100%;
     margin-left: 10px;
+    box-shadow:inset 0px 1px 0px 0px #54a3f7;
+	background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
+	background-color:#00c1b1;
+	border-radius:30px;
+	border:1px solid #124d77;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:6px 24px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #154682;
+    font-size: 24px;
 }
 
-/* pamela 3/16: (temporary) just adding a background to see text */
-#current-user,  
+
+/* pamela 3/16: (temporary) just adding a background to see text */  
 #current-preferences-title,
 #current-preferencess {
   text-align: center;
   background-color: #cccccc;
+  border: 5px outset #1FDAEF;
+  border-radius: 40px;
+  margin-top: 20px;
+  
+}
+#current-user{
+  text-align: center;
+  font-size: 32px;
+}
+
+#middle-column img{
+  width: 100px;
+  height: 400px;
+  padding: 10px;
+}
+
+#favorite0, #favorite1, #favorite2, #favorite3, #favorite4 {
+  box-shadow: 3px 4px 0px 0px #21338a;
+	background:linear-gradient(to bottom, #2035c4 5%, #38f097 100%);
+	background-color:#2035c4;
+	border-radius:18px;
+	border:1px solid #19cf59;
+	display:inline-block;
+	cursor:pointer;
+	color:#ebeb09;
+	font-family:Arial;
+	font-size:17px;
+	padding:7px 25px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #810e05;
+  width: fit-content;
+  margin-left: 5px;
+}
+
+#read0, #read1, #read2, #read3, #read4{
+  box-shadow: 3px 4px 0px 0px #21338a;
+	background:linear-gradient(to bottom, #2035c4 5%, #38f097 100%);
+	background-color:#2035c4;
+	border-radius:18px;
+	border:1px solid #19cf59;
+	display:inline-block;
+	cursor:pointer;
+	color:#ebeb09;
+	font-family:Arial;
+	font-size:17px;
+	padding:7px 25px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #810e05;
+  width: fit-content;
+  margin-left: 10px;
+}
+#toRead0, #toRead1, #toRead2, #toRead3, #toRead4{
+  box-shadow: 3px 4px 0px 0px #21338a;
+	background:linear-gradient(to bottom, #2035c4 5%, #38f097 100%);
+	background-color:#2035c4;
+	border-radius:18px;
+	border:1px solid #19cf59;
+	display:inline-block;
+	cursor:pointer;
+	color:#ebeb09;
+	font-family:Arial;
+	font-size:17px;
+	padding:7px 25px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #810e05;
+  width: fit-content;
+  margin-left: 10px;
+    
+}
+#interest-fieldset{
+  text-align: center;
+  font-size: 24px;
+}
+
+
+#card-title0, #card-title1, #card-title2, #card-title3, #card-title4{
+font-size: 20px;
+font-weight: bolder;
+font-style: italic;
+margin-left: 10px;
+}
+.card-text{
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 30px;
+}
+
+#update-button{
+  box-shadow: 3px 4px 0px 0px #21338a;
+	background:linear-gradient(to bottom, #2035c4 5%, #38f097 100%);
+	background-color:#2035c4;
+	border-radius:18px;
+	border:1px solid #19cf59;
+	display:inline-block;
+	cursor:pointer;
+	color:#ebeb09;
+	font-family:Arial;
+	font-size:17px;
+	padding:7px 25px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #810e05;
 }
