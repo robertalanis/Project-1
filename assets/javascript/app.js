@@ -92,10 +92,10 @@ $(document).ready(function () {
                 imgButton.append(favoriteButton);
                 imgButton.append(readButton);
                 imgButton.append(willReadButton);
-                
+
                 div.append(imgButton);
-                div.append(img);
-                div.append(buttonDiv);
+                //div.append(img);
+                //div.append(buttonDiv);
                 div.append(pTitle);
                 div.append(pAuthor);
                 div.addClass("resultDiv");
