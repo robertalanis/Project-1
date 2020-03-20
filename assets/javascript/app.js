@@ -1,10 +1,8 @@
 $(document).ready(function () {
 
-
     var favorite = "";
     var read = "";
     var toRead = "";
-
 
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -23,6 +21,90 @@ $(document).ready(function () {
     var auth = firebase.auth();
 
 
+
+    //on page  load, randomly selected topic from array pushes books from API call 
+    var  bookShelfTopic = ["fiction", "fantasy", "non-fiction", "classics", "science-fiction", "audiobook", "novels", "science", "humor", "literature", "psychology", 
+    "politics", "school", "dystopia", 'self-help', 'read-for-school', "health", "medical", "popular-science", "skepticism"];
+
+    var randomShelfTopic = bookShelfTopic[Math.floor(Math.random() * bookShelfTopic.length)]
+    // console.log("random topic: " + randomShelfTopic);
+
+    var url = "https://cors-anywhere.herokuapp.com/https://www.goodreads.com/shelf/show/" + randomShelfTopic;
+    // console.log("random url: " + url);
+    var bookArray = [];
+    $.ajax({
+        url,
+        method: "GET",
+    })
+        .then(function (response) {
+            // console.log("response: ", response);
+            var el = document.createElement('html');
+            el.innerHTML = response;
+            var allTags = el.getElementsByTagName('a'); // Live NodeList of anchor elements this works
+            // console.log("allTags: ", allTags);
+            for (var i = 0; i < allTags.length; i++) {
+                var titleTagClass = allTags[i].classList[0]; // Live NodeList of anchor elements this works
+                if (titleTagClass === "bookTitle") {
+                    var titleImageHref = "https://www.goodreads.com" + allTags[i].getAttribute('href');
+                    var authorHref = allTags[i + 1].getAttribute('href');
+                    var bookTag = {
+                        title: allTags[i].textContent,
+                        titleImageHref: titleImageHref,
+                        author: allTags[i + 1].textContent,
+                        authorHref: authorHref,
+                        image: allTags[i - 1].innerHTML
+                    }
+                    bookArray.push(bookTag);
+                }
+            }
+
+            //List 10 Titles from the Search Results
+            for (let index = 0; index < 10; index++) {
+
+                // Div for each Book
+                var div = $("<div class='card' id='card-body'>");
+                // Image tag each Book
+                var img = $(bookArray[index].image);
+                    // img.attr("src", bookArray[index].image);
+                // Title tag for each Book
+                var pTitle = $("<p class='card-title'>");
+                    pTitle.text(bookArray[index].title);
+                // Author tag for each Book
+                var pAuthor = $("<p class='card-text'>");
+                    pAuthor.text(bookArray[index].author);
+
+                var favoriteButton = $("<button>Favorite</button>");
+                var readButton = $("<button>Did Read</button>");
+                var willReadButton = $("<button>Will Read</button>");
+
+                favoriteButton.attr("id", "favorite" + index.toString());
+                readButton.attr("id", "read" + index.toString());
+                willReadButton.attr("id", "toRead" + index.toString());
+
+                pTitle.attr("id", "card-title" + index.toString())
+
+
+                div.append(img);
+                div.append(pTitle);
+                div.append(pAuthor);
+                div.addClass("resultDiv");
+                div.append(favoriteButton);
+                div.append(readButton);
+                div.append(willReadButton);
+                $("#middle-column").prepend(div);
+
+
+            }
+
+            console.log("bookArray: ", bookArray);
+        }).catch(function (err) {
+            console.log("err: ", err);
+        });
+
+
+
+
+
     //listen for auth status changes
     auth.onAuthStateChanged(user => {
 
@@ -33,9 +115,7 @@ $(document).ready(function () {
             //save "displayName" to update and login button to add data to user node in database
             $("#update-button").attr("data-id", user.displayName);
             $("#login-button").attr("data-id", user.displayName);
-
             userName = user.displayName;
-
             // console.log(userName);
             databaseSnapshotToPage();
         }
@@ -61,14 +141,14 @@ $(document).ready(function () {
 
             // added to load bookShelf div
             favorite = snapshot.val().favorite;                 // added to load bookShelf
-            console.log("favorite: ", favorite);
+            // console.log("favorite: ", favorite);
             read = snapshot.val().read;                         // added to load bookShelf
             toRead = snapshot.val().toRead;                     // added to load bookShelf
             updateShelf();
             // end of bookShelf adds
 
 
-            console.log(snapshot);
+            // console.log(snapshot);
             eachInterestList = $("<ul>");
             $("#current-preferences").append(eachInterestList);
 
@@ -80,7 +160,6 @@ $(document).ready(function () {
                 });
                 eachInterest.text(valueCheckboxes[i])
                 eachInterestList.append(eachInterest);
-
             }
         });
     }
@@ -89,7 +168,6 @@ $(document).ready(function () {
     function updateQuotes() {
         //file:///C:/Users/sb/OneDrive/Documents/BowlerConsulting/UTbootcamp/homework/Project-1/.../
         // required attribution link to be able to use the quote theysaidso.com
-
 
         var url = "https://quotes.rest/qod.json?category=inspire";
 
@@ -137,7 +215,6 @@ $(document).ready(function () {
     $("#interest-fieldset").append("<input type='submit' id='update-button' value='Update'/>");
 
 
-
     //take the value of checked checkboxes and save to firebase by user on click of 'save' button
     $("#update-button").on("click", function (event) {
         event.preventDefault();
@@ -147,7 +224,7 @@ $(document).ready(function () {
         //runs to save checked checkboxes to an array to store in database
         saveCheckboxValue();
 
-        database.ref("userNames/").child(userName).update({
+        database.ref("userNames/").child(userName).update({    //this is overwriting bookshelf once clicked, how to  target just preferences key??
             preferences: valueCheckboxes
         });
 
@@ -191,7 +268,6 @@ $(document).ready(function () {
                 });
             });
 
-
         //clear text
         $("#signup-display-name").val("");
         $("#signup-email").val("");
@@ -213,8 +289,8 @@ $(document).ready(function () {
         auth.signInWithEmailAndPassword(userEmail, userPassword)
             .then(userCred => {
                 //display user preferences & bookshelf??
+                //display user name as logged in
             });
-
 
         //clear text
         $("#login-email").val("");
@@ -234,7 +310,6 @@ $(document).ready(function () {
         $("#current-preferences").text(" ");
         $("#current-preferences").hide();
     });
-
 
 
     //shelf functions below
@@ -290,38 +365,119 @@ $(document).ready(function () {
     });
 
 
-    // / API Key
-    // var key = "Ct9FFohzvoH1NHCQ7TzXQ";
-    var key = "JgCBn7KkZN4X2G5VcGuN2Q";
-    var search = "horror";
-    // // Function to Search by ISBN
-    // function search (search) {
-    var url = "https://cors-anywhere.herokuapp.com/https://www.goodreads.com/search/index.xml?key=" + key + "&q=" + search;
+$("#searchSuc").on("click", function (event) {
+    event.preventDefault();
 
-    // testing our goodreads api w ajax
-    // console.log("Feeling name is: " + e.target.innerText + "feeling: " + feeling);
-    $.ajax({
-        url,
-        method: "GET",
-        dataType: 'xml'
+    $("#middle-column").empty();
+    
+
+    // user input to search bar
+    userSearchTopic = $("#searchSucInput").val().trim();
+    console.log(userSearchTopic);
+    search(userSearchTopic);
+
+    $("#searchSucInput").val("");
+
+});
+
+ 
+
+// API Key
+var key = "Ct9FFohzvoH1NHCQ7TzXQ";
+
+//Function to Search by ISBN, Author, and Title
+function search(search) {
+  var queryURL =
+    "https://cors-anywhere.herokuapp.com/" +
+    "https://www.goodreads.com/search/index.xml?key=" +
+    key +
+    "&q=" +
+    search;
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow"
+  };
+  fetch(queryURL, requestOptions)
+    .then(response => response.text())
+    //.then(result => console.log(result))
+    .then(result => {
+      parser = new DOMParser();
+      xmlDoc = parser.parseFromString(result, "text/xml");
+
+      // Number of search results returned
+      var searchLength = 3;
+
+      //List 10 Titles from the Search Results
+      for (let index = 0; index < searchLength; index++) {
+
+        // Div for each Book
+        var div = $("<div class='card' id='card-body'>");
+        // Image tag each Book
+        var img = $("<img class='card-img-top' alt='no picture available'>");
+        // Title tag for each Book
+        var pTitle = $("<p class='card-title'>");
+        // Author tag for each Book
+        var pAuthor = $("<p class='card-text'>");
+
+        var favoriteButton = $("<button>Favorite</button>");
+        var readButton = $("<button>Did Read</button>");
+        var willReadButton = $("<button>Will Read</button>");
+
+        // Title
+        var bookTitle = xmlDoc
+            .getElementsByTagName("search")[0]
+            .getElementsByTagName("results")[0]
+            .getElementsByTagName("work")[index]
+            .getElementsByTagName("best_book")[0]
+            .getElementsByTagName("title")[0].childNodes[0].nodeValue;
+
+        // Author
+        var bookAuthor = xmlDoc
+            .getElementsByTagName("search")[0]
+            .getElementsByTagName("results")[0]
+            .getElementsByTagName("work")[index]
+            .getElementsByTagName("best_book")[0]
+            .getElementsByTagName("author")[0]
+            .getElementsByTagName("name")[0].childNodes[0].nodeValue;
+
+        // Image
+        var imageLink = xmlDoc
+            .getElementsByTagName("search")[0]
+            .getElementsByTagName("results")[0]
+            .getElementsByTagName("work")[index]
+            .getElementsByTagName("best_book")[0]
+            .getElementsByTagName("image_url")[0].childNodes[0].nodeValue;    
+
+            
+        // Place text inside divs
+        pTitle.html(bookTitle);
+        pAuthor.html(bookAuthor);
+
+        favoriteButton.attr("id", "favorite" + index.toString());
+        readButton.attr("id", "read" + index.toString());
+        willReadButton.attr("id", "toRead" + index.toString());
+
+        pTitle.attr("id", "card-title" + index.toString())
+
+
+        // Placement of text inside inside BookDiv for each result
+        img.attr("src", imageLink);
+        div.append(img);
+        div.append(pTitle);
+        div.append(pAuthor);
+        div.addClass("resultDiv");
+        div.append(favoriteButton);
+        div.append(readButton);
+        div.append(willReadButton);
+        $("#middle-column").prepend(div);
+    }
+    
+    // Log search entire search result
+    console.log("IMPORTANT:", xmlDoc);
+    
     })
-        .then(function (response) {
-            console.log(response);
-
-            var xml = response,
-                xmlDoc = $.parseXML(xml),
-                $xml = $(xmlDoc),
-                $title = $xml.find("results");
-            // var temp = xml.getElementsByTagName("search").getElementsByTagName("results").getElementsByTagName("work").getElementsByTagName("best_book").getElementsByTagName("author");
-            var temp = xml.getElementsByTagName("search");//.getElementsByTagName("results");//.getElementsByTagName("work").getElementsByTagName("best_book").getElementsByTagName("author");
-            console.log("title: ", $title);
-            console.log("title: ", temp);
-        }).catch(function (err) {
-            console.log(err);
-        });
-
-
-
+    .catch(error => console.log("error", error));
+}
 
 
 
