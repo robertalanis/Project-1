@@ -59,7 +59,7 @@ $(document).ready(function () {
             }
 
             //List 10 Titles from the Search Results
-            for (let index = 0; index < 10; index++) {
+            for (let index = 0; index < 5; index++) {
 
                 // Div for each Book
                 var div = $("<div class='card' id='card-body'>");
@@ -76,6 +76,10 @@ $(document).ready(function () {
                 var favoriteButton = $("<button>Favorite</button>");
                 var readButton = $("<button>Did Read</button>");
                 var willReadButton = $("<button>Will Read</button>");
+                var buttonDiv = $('<div class="buttonDiv">');
+                    buttonDiv.append(favoriteButton);
+                    buttonDiv.append(readButton);
+                    buttonDiv.append(willReadButton);
 
                 favoriteButton.attr("id", "favorite" + index.toString());
                 readButton.attr("id", "read" + index.toString());
@@ -85,12 +89,10 @@ $(document).ready(function () {
 
 
                 div.append(img);
+                div.append(buttonDiv);
                 div.append(pTitle);
                 div.append(pAuthor);
                 div.addClass("resultDiv");
-                div.append(favoriteButton);
-                div.append(readButton);
-                div.append(willReadButton);
                 $("#middle-column").prepend(div);
 
 
@@ -405,7 +407,7 @@ function search(search) {
       xmlDoc = parser.parseFromString(result, "text/xml");
 
       // Number of search results returned
-      var searchLength = 3;
+      var searchLength = 5;
 
       //List 10 Titles from the Search Results
       for (let index = 0; index < searchLength; index++) {
@@ -423,6 +425,10 @@ function search(search) {
         var readButton = $("<button>Did Read</button>");
         var willReadButton = $("<button>Will Read</button>");
 
+        var buttonDiv = $('<div class="buttonDiv">');
+        buttonDiv.append(favoriteButton);
+        buttonDiv.append(readButton);
+        buttonDiv.append(willReadButton);
         // Title
         var bookTitle = xmlDoc
             .getElementsByTagName("search")[0]
@@ -463,12 +469,11 @@ function search(search) {
         // Placement of text inside inside BookDiv for each result
         img.attr("src", imageLink);
         div.append(img);
+        div.append(buttonDiv);
         div.append(pTitle);
         div.append(pAuthor);
         div.addClass("resultDiv");
-        div.append(favoriteButton);
-        div.append(readButton);
-        div.append(willReadButton);
+        
         $("#middle-column").prepend(div);
     }
     
