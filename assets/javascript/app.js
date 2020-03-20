@@ -87,8 +87,14 @@ $(document).ready(function () {
 
                 pTitle.attr("id", "card-title" + index.toString())
 
-
-                div.append(img);
+            var imgButton = $('<div id=imgButton style="float:left;">')
+                imgButton.append(img);
+                imgButton.append(favoriteButton);
+                imgButton.append(readButton);
+                imgButton.append(willReadButton);
+                
+                div.append(imgButton);
+                div.append(img);
                 div.append(buttonDiv);
                 div.append(pTitle);
                 div.append(pAuthor);
