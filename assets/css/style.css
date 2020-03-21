@@ -1,8 +1,12 @@
+body {
+  max-width: 1200px;
+}
+
 .nav-link {
   font-family: "Special Elite", cursive;
-  margin-right: 40px;
+  margin-right: 10px;
   font-weight: bolder;
-  font-size: 30px;
+  font-size: 20px;
   color: #ffffff;
   text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
     0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
@@ -10,8 +14,9 @@
     0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
     0 20px 20px rgba(0, 0, 0, 0.15);
   color: #ffffff;
-  margin-left: 35px;
+  margin-left: 10px;
 }
+
 #Mybooks, #Home, #navbarDropdown{
   color: #ffffff;
   text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
@@ -26,7 +31,7 @@
   font-size: 90px;
   font-weight: bold;
   font-family: "Lobster", cursive;
-  margin-left: 60px;
+  margin-left: 40px;
   text-shadow: #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 3px, #FF2D95 0px 0px 4px, #FF2D95 0px 0px 5px, #FF2D95 0px 0px 5px;
   color: rgb(0, 132, 255);
 }
@@ -61,9 +66,6 @@
 border: 5px solid black;
 }
 
-
-
-
 #interest-category-list {
   padding: 10px;
   padding-left: 10px;
@@ -73,9 +75,7 @@ border: 5px solid black;
   background-color: slategray;
 }
 
-
 #quotes, #bookShelf {
-
   padding: 35px;
   font-size: 16px;
   background-color: slategray;
@@ -85,15 +85,12 @@ border: 5px solid black;
   margin-top: 40px;
 }
 
-
 #main {
-    background: url(https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1082&q=80);
+  background: url(https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1082&q=80);
  border: 5px outset black;
  background-size: cover;
  min-height: 100%;
 }
-
-
 
 #links{
     padding:30px;
@@ -113,49 +110,44 @@ border: 5px solid black;
   font-family: 'Acme', sans-serif;
 }
 
-#center-column{
-    margin-left:40px;
-    width: 45rem;
+#middle-column{
+    margin-left:5px;
+    width: 100%;
     height: 25rem;
-
 }
+
 #card-body{
     margin-top: 10px;
     border: 10px outset slategrey;
-    width: 600px;
+    width: 100%;
     height: 250px;
-    margin-left: 100px;
     border-radius: 40px;
-    
   }
   
   #current-user{
     margin-top: 40px;
-    
   }
-  /* pamela 3/16:  temporarily styling modal buttons (login/signup/logout) */
+ 
   .modal-button,
-#current-user {
+  #current-user {
     width: 100%;
     margin-left: 10px;
     box-shadow:inset 0px 1px 0px 0px #54a3f7;
-	background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
-	background-color:#00c1b1;
-	border-radius:30px;
-	border:1px solid #124d77;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:13px;
-	padding:6px 24px;
-	text-decoration:none;
-  text-shadow:0px 1px 0px #154682;
+    background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
+    background-color:#00c1b1;
+    border-radius:30px;
+    border:1px solid #124d77;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:13px;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #154682;
     font-size: 18px;
 }
 
-
-/* pamela 3/16: (temporary) just adding a background to see text */  
 #current-preferences-title,
 #current-preferencess {
   text-align: center;
@@ -163,8 +155,8 @@ border: 5px solid black;
   border: 5px outset #1FDAEF;
   border-radius: 40px;
   margin-top: 20px;
-  
 }
+
 #current-user{
   text-align: center;
   font-size: 32px;
@@ -186,8 +178,8 @@ border: 5px solid black;
 	cursor:pointer;
 	color:#ebeb09;
 	font-family:Arial;
-	font-size:17px;
-	padding:7px 25px;
+	font-size: 15px;
+	padding:7px 15px;
 	text-decoration:none;
   text-shadow:0px 1px 0px #810e05;
   width: fit-content;
@@ -204,13 +196,14 @@ border: 5px solid black;
 	cursor:pointer;
 	color:#ebeb09;
 	font-family:Arial;
-	font-size:17px;
-	padding:7px 25px;
+	font-size: 15px;
+	padding:7px 15px;
 	text-decoration:none;
   text-shadow:0px 1px 0px #810e05;
   width: fit-content;
   margin-left: 10px;
 }
+
 #toRead0, #toRead1, #toRead2, #toRead3, #toRead4{
   box-shadow: 3px 4px 0px 0px #21338a;
 	background:linear-gradient(to bottom, #2035c4 5%, #38f097 100%);
@@ -221,26 +214,26 @@ border: 5px solid black;
 	cursor:pointer;
 	color:#ebeb09;
 	font-family:Arial;
-	font-size:17px;
-	padding:7px 25px;
+	font-size: 15px;
+	padding:7px 15px;
 	text-decoration:none;
   text-shadow:0px 1px 0px #810e05;
   width: fit-content;
   margin-left: 10px;
-    
 }
+
 #interest-fieldset{
   text-align: center;
   font-size: 18px;
 }
 
-
 #card-title0, #card-title1, #card-title2, #card-title3, #card-title4{
-font-size: 20px;
+font-size: 15px;
 font-weight: bolder;
 font-style: italic;
 margin-left: 10px;
 }
+
 .card-text{
   font-size: 16px;
   font-weight: bold;

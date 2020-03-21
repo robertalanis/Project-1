@@ -4,7 +4,7 @@ $(document).ready(function () {
     var read = "";
     var toRead = "";
 
-    // Your web app's Firebase configuration
+    // Firebase configuration
     var firebaseConfig = {
         apiKey: "AIzaSyCa9kIsfAb5dUUjyrbX-bchCAr-V2vhswE",
         authDomain: "project1-c7c87.firebaseapp.com",
@@ -21,29 +21,24 @@ $(document).ready(function () {
     var auth = firebase.auth();
 
 
-
-    //on page  load, randomly selected topic from array pushes books from API call 
+    //on page load, randomly selected topic from array pushes books from API call 
     var  bookShelfTopic = ["fiction", "fantasy", "non-fiction", "classics", "science-fiction", "audiobook", "novels", "science", "humor", "literature", "psychology", 
     "politics", "school", "dystopia", 'self-help', 'read-for-school', "health", "medical", "popular-science", "skepticism"];
 
     var randomShelfTopic = bookShelfTopic[Math.floor(Math.random() * bookShelfTopic.length)]
-    // console.log("random topic: " + randomShelfTopic);
 
     var url = "https://cors-anywhere.herokuapp.com/https://www.goodreads.com/shelf/show/" + randomShelfTopic;
-    // console.log("random url: " + url);
     var bookArray = [];
     $.ajax({
         url,
         method: "GET",
     })
         .then(function (response) {
-            // console.log("response: ", response);
             var el = document.createElement('html');
             el.innerHTML = response;
-            var allTags = el.getElementsByTagName('a'); // Live NodeList of anchor elements this works
-            // console.log("allTags: ", allTags);
+            var allTags = el.getElementsByTagName('a'); // Live NodeList of anchor elements
             for (var i = 0; i < allTags.length; i++) {
-                var titleTagClass = allTags[i].classList[0]; // Live NodeList of anchor elements this works
+                var titleTagClass = allTags[i].classList[0]; // Live NodeList of anchor elements
                 if (titleTagClass === "bookTitle") {
                     var titleImageHref = "https://www.goodreads.com" + allTags[i].getAttribute('href');
                     var authorHref = allTags[i + 1].getAttribute('href');
@@ -58,21 +53,20 @@ $(document).ready(function () {
                 }
             }
 
-            //List 10 Titles from the Search Results
+            //List 5 Titles from the Search Results
             for (let index = 0; index < 5; index++) {
 
                 // Div for each Book
                 var div = $("<div class='card' id='card-body'>");
                 // Image tag each Book
                 var img = $(bookArray[index].image);
-                    // img.attr("src", bookArray[index].image);
                 // Title tag for each Book
                 var pTitle = $("<p class='card-title'>");
                     pTitle.text(bookArray[index].title);
                 // Author tag for each Book
                 var pAuthor = $("<p class='card-text'>");
                     pAuthor.text(bookArray[index].author);
-
+                //creating buttons in the book card
                 var favoriteButton = $("<button>Favorite</button>");
                 var readButton = $("<button>Did Read</button>");
                 var willReadButton = $("<button>Will Read</button>");
@@ -94,37 +88,26 @@ $(document).ready(function () {
                 imgButton.append(willReadButton);
 
                 div.append(imgButton);
-                //div.append(img);
-                //div.append(buttonDiv);
                 div.append(pTitle);
                 div.append(pAuthor);
                 div.addClass("resultDiv");
                 $("#middle-column").prepend(div);
-
-
             }
-
-            console.log("bookArray: ", bookArray);
         }).catch(function (err) {
             console.log("err: ", err);
         });
-
-
-
 
 
     //listen for auth status changes
     auth.onAuthStateChanged(user => {
 
         if (user) {
-            // console.log("user logged in: ", user);
             $("#user-logged-in").text(user.displayName);
 
             //save "displayName" to update and login button to add data to user node in database
             $("#update-button").attr("data-id", user.displayName);
             $("#login-button").attr("data-id", user.displayName);
             userName = user.displayName;
-            // console.log(userName);
             databaseSnapshotToPage();
         }
         else {
@@ -134,29 +117,21 @@ $(document).ready(function () {
         }
     });
 
-
     function databaseSnapshotToPage() {
 
         $("#current-preferences").empty();
 
-        //on login or click to update preferences, (or click to add to bookshelves), capture current data in database:
-        // var preferences = firebase.database().ref('userNames/' + userName + '/preferences');
-        var preferences = firebase.database().ref('userNames/' + userName);  // changed to get full userName object to read favorite, toRead and read
+        //on login or click to update preferences or click to add to bookshelves, capture current data in database:
+        var preferences = firebase.database().ref('userNames/' + userName); 
         preferences.once('value', function (snapshot) {
-            valueCheckboxes = snapshot.val().preferences;       // added .preferences
-            // console.log(valueCheckboxes);
+            valueCheckboxes = snapshot.val().preferences;      
 
-
-            // added to load bookShelf div
-            favorite = snapshot.val().favorite;                 // added to load bookShelf
-            // console.log("favorite: ", favorite);
-            read = snapshot.val().read;                         // added to load bookShelf
-            toRead = snapshot.val().toRead;                     // added to load bookShelf
+            //load bookShelf div
+            favorite = snapshot.val().favorite;               
+            read = snapshot.val().read;                    
+            toRead = snapshot.val().toRead;                    
             updateShelf();
-            // end of bookShelf adds
-
-
-            // console.log(snapshot);
+            
             eachInterestList = $("<ul>");
             $("#current-preferences").append(eachInterestList);
 
@@ -174,8 +149,6 @@ $(document).ready(function () {
 
 
     function updateQuotes() {
-        //file:///C:/Users/sb/OneDrive/Documents/BowlerConsulting/UTbootcamp/homework/Project-1/.../
-        // required attribution link to be able to use the quote theysaidso.com
 
         var url = "https://quotes.rest/qod.json?category=inspire";
 
@@ -193,7 +166,7 @@ $(document).ready(function () {
             });
     }
 
-    // goes to "theysaidso??" API and pulls in quote
+    // goes to API and pulls in quote, on page load
     updateQuotes();
 
     //array to hold all interest topics
@@ -232,7 +205,7 @@ $(document).ready(function () {
         //runs to save checked checkboxes to an array to store in database
         saveCheckboxValue();
 
-        database.ref("userNames/").child(userName).update({    //this is overwriting bookshelf once clicked, how to  target just preferences key??
+        database.ref("userNames/").child(userName).update({ 
             preferences: valueCheckboxes
         });
 
@@ -271,7 +244,6 @@ $(document).ready(function () {
             .then(userCred => {
                 var user = firebase.auth().currentUser;
                 user.updateProfile({
-                    // must use something other than email to reference user's data from database, displayName is a field in authentication object
                     displayName: newUserDisplayName
                 });
             });
@@ -294,11 +266,10 @@ $(document).ready(function () {
         var userEmail = $("#login-email").val().trim();
         var userPassword = $("#login-password").val().trim();
 
-        auth.signInWithEmailAndPassword(userEmail, userPassword)
-            .then(userCred => {
-                //display user preferences & bookshelf??
-                //display user name as logged in
-            });
+        auth.signInWithEmailAndPassword(userEmail, userPassword);
+            // .then(userCred => {
+            //     //display user name as logged in
+            // });
 
         //clear text
         $("#login-email").val("");
@@ -317,6 +288,7 @@ $(document).ready(function () {
         $("#user-logged-in").text(" ");
         $("#current-preferences").text(" ");
         $("#current-preferences").hide();
+        $("#bookShelf").empty();
     });
 
 
@@ -330,11 +302,10 @@ $(document).ready(function () {
         $("#bookShelf").append("<p>Next to Read: <strong>" + toRead + "</strong></p>");
     }
 
-
     // with cards loaded in middle column, user clicks "add" to: favorites, read, toRead buttons, updates userName node in fireBase
     $("#middle-column").on("click", ".card", function (e) {
         event.preventDefault();
-        if (!userName) return;                  // can't add to 
+        if (!userName) return;                  
         var thisId = e.target.attributes.getNamedItem("id").textContent;
         console.log(thisId);
         switch (thisId.slice(0, 1).toLowerCase()) {
@@ -369,7 +340,6 @@ $(document).ready(function () {
                 break;
             }
         }
-
     });
 
 
@@ -378,17 +348,14 @@ $("#searchSuc").on("click", function (event) {
 
     $("#middle-column").empty();
     
-
     // user input to search bar
     userSearchTopic = $("#searchSucInput").val().trim();
     console.log(userSearchTopic);
     search(userSearchTopic);
 
     $("#searchSucInput").val("");
-
 });
 
- 
 
 // API Key
 var key = "Ct9FFohzvoH1NHCQ7TzXQ";
@@ -415,7 +382,7 @@ function search(search) {
       // Number of search results returned
       var searchLength = 5;
 
-      //List 10 Titles from the Search Results
+      //List 5 Titles from the Search Results
       for (let index = 0; index < searchLength; index++) {
 
         // Div for each Book
@@ -435,6 +402,7 @@ function search(search) {
         buttonDiv.append(favoriteButton);
         buttonDiv.append(readButton);
         buttonDiv.append(willReadButton);
+
         // Title
         var bookTitle = xmlDoc
             .getElementsByTagName("search")[0]
@@ -471,11 +439,17 @@ function search(search) {
 
         pTitle.attr("id", "card-title" + index.toString())
 
+        var imgButton = $('<div id=imgButton style="float:left;">')
+                imgButton.append(img);
+                imgButton.append(favoriteButton);
+                imgButton.append(readButton);
+                imgButton.append(willReadButton);
 
         // Placement of text inside inside BookDiv for each result
         img.attr("src", imageLink);
-        div.append(img);
-        div.append(buttonDiv);
+        div.append(imgButton);
+        // div.append(img);
+        // div.append(buttonDiv);
         div.append(pTitle);
         div.append(pAuthor);
         div.addClass("resultDiv");
@@ -489,8 +463,6 @@ function search(search) {
     })
     .catch(error => console.log("error", error));
 }
-
-
 
 });
 

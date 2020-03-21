@@ -9,8 +9,8 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Caveat|Lobster|Pacifico&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Acme|Bree+Serif|Passion+One|Special+Elite&display=swap" rel="stylesheet">
+  
   <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
-  <!-- Pamela 3/16: adding link to firebase authentication -->
   <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
 
@@ -60,8 +60,6 @@
       </ul>
     </div>
   </nav>
-
-  <!-- Pamela 3/16: adding in html for modals used for 'signup' and 'login' -->
 
   <!-- Signup MODAL -->
   <div class="modal fade" id="model-signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -130,25 +128,12 @@
       </div>
     </div>
   </div>
-  <!-- end of modals -->
 
 
 
   <div id="main">
-    <!--divs 3-6-3 column width-->
-    <!---->
     <div class="row">
       <div class="col-3" id="left-column">
-
-        <!-- add field for user to enter name  - this is temporary in order to test database features
-      - will be replaced with authentication method for retrieving user information -->
-        <!-- Pamela  3/16: removing name text field .... replacing with authentication -->
-        <!-- <form action="/action_page.php">
-        <label for="user-name">Name:</label>
-        <input type="text" id="user-name" name="user-name"><br><br>
-      </form> -->
-
-        <!--Pamela 3/16: adding signup/login/logout -->
         <div>
           <button type="button" class="modal-button" class="btn btn-primary" data-toggle="modal"
             data-target="#model-signup">
@@ -162,16 +147,12 @@
             Logout
           </button><br>
 
-          <!-- and adding div to  display the user's name when logged into the app   -->
           <div id="current-user">
             <p id="user-logged-in-title">Logged in as:</p>
             <p id="user-logged-in"></p>
           </div>
         </div>
-        <!--  -->
-
-        <!--Pamela 3/16: moved search textbox and button from banner  -->
-        <!-- Pamela 3/18: changed placeholder to include specific search types -->
+        
         <form class="form-inline my-2 my-sm-0">
           <div class="input-group">
             <input class="form-control mr-sm-0" type="search" id="searchSucInput"
@@ -182,11 +163,11 @@
           </div>
         </form>
 
-        <!-- adding div to give list of currently selected interested by user (pulled from database) -->
+
         <div id="current-preferences-title">Current interests:
           <div id="current-preferences"></div>
         </div>
-        <!--  -->
+        
 
         <div id="interest-category-list">
           <form method="post" action="/Tests/Post/" id="interest-category-form">
@@ -195,7 +176,7 @@
       </div>
 
 
-      <div class="col-6" id="middle-column"></div>
+      <div class="col-5" id="middle-column"></div>
 
 
       <div class="col-3" id=right-column>
@@ -243,20 +224,15 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-  <!-- <script src="./assets/javascript/quotes.js"></script> -->
+  
   <script src="./assets/javascript/app.js"></script>
 
-
-  <!-- <script>updateQuotes();</script> -->
 
 </body>
 
